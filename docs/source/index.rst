@@ -47,17 +47,17 @@ Materials and Methods
 Materials
 ~~~~~~~~~
 
-1. Snakefood3: 一款使用AST解析python文件并生成依赖关系图的轻量级软件
-2. Graphviz 1.6: 一款将结构信息图形可视化的开源软件
-3. Mermaid:
+Snakefood3: 一款使用AST解析python文件并生成依赖关系图的轻量级软件
+Graphviz 1.6: 一款将结构信息图形可视化的开源软件
+Mermaid:
    一个将文本和代码转化为图表形式，并实现图表动态地创建修改的工具
 
 Methods
 ~~~~~~~
 
-1. 利用snakefood3自动生成EnglishPal的模块层间的依赖关系
-2. 利用Graphviz，将snakefood生成的文件转化为图表形式可视化呈现
-3. 阅读源码，总结出EnglishPal中类及函数之间的依赖关系，再利用Mermaid生成可视化图表
+利用snakefood3自动生成EnglishPal的模块层间的依赖关系
+利用Graphviz，将snakefood生成的文件转化为图表形式可视化呈现
+阅读源码，总结出EnglishPal中类及函数之间的依赖关系，再利用Mermaid生成可视化图表
 
 Results
 -------
