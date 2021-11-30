@@ -9,6 +9,8 @@ Welcome to EnglishPal's documentation!
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
+   
+   example.md
 
 Indices and tables
 ==================
