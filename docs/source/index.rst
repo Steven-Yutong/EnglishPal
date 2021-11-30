@@ -28,9 +28,9 @@ Lab1：Dependency Analysis and Dependency Graph
 
 201932110148 谢铭轩
 
-项目Github地址：\ `Github <https://gitee.com/dearxuan/EnglishPal.git>`__
+项目Github地址：\ `Github <https://github.com/Steven-Yutong/EnglishPal.git>`__
 
-项目Read the Docs地址：\ `Read the Docs <https://www.baidu.com>`__
+项目Read the Docs地址：\ `Read the Docs <https://englishpal3.readthedocs.io/en/latest/>`__
 
 Abstract
 --------
