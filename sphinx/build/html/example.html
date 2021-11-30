@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html class="writer-html4" lang="cn" >
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lab1：Dependency Analysis and Dependency Graph &mdash; EnglishPal 1.0 documentation</title><link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+      <script>
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'./',
+              VERSION:'1.0',
+              LANGUAGE:'cn',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Welcome to EnglishPal&#39;s documentation!" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> EnglishPal
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Lab1：Dependency Analysis and Dependency Graph</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#abstract">Abstract</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#introduction">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#materials-and-methods">Materials and Methods</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#materials">Materials</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#methods">Methods</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#results">Results</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#discussions">Discussions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#id1">依赖分析</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#id2">当前架构优缺点</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#id3">优点：</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#id4">缺点：</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#id5">总结</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#references">References</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">EnglishPal</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a> &raquo;</li>
+      <li>Lab1：Dependency Analysis and Dependency Graph</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/example.md.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <div class="section" id="lab1-dependency-analysis-and-dependency-graph">
+<h1>Lab1：Dependency Analysis and Dependency Graph<a class="headerlink" href="#lab1-dependency-analysis-and-dependency-graph" title="Permalink to this headline">¶</a></h1>
+<hr class="docutils" />
+<p>小组成员信息：<br/>
+201932110143 王炫<br/>
+201932110145 邬程峰<br/>
+201932110146 吴彬宇<br/>
+201932110147 吴雨桐<br/>
+201932110148 谢铭轩<br/></p>
+<p>项目Gitee地址：https://gitee.com/dearxuan/EnglishPal.git
+项目Read the Doc地址：</p>
+<hr class="docutils" />
+<div class="section" id="abstract">
+<h2>Abstract<a class="headerlink" href="#abstract" title="Permalink to this headline">¶</a></h2>
+<p>借助工具研究EnglishPal现有的模块(或类)之间的依赖关系，了解EnglishPal的架构目前的健康水平，并对当前的架构进行优缺点分析。</p>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>EnglishPal是一款面向希望提升自身英语阅读能力的用户，提供英语文章学习服务的轻量级在线网站。它内设了多达百篇不同难度等级的文章，会根据用户的英语水平为用户提供相应难度的文章进行练习；同时，每一个用户还享有独立的生词本，用户可以将在阅读文章过程中遇到的生词收集起来，在复习中进行针对性记忆。</p>
+<p>本次实验的目的是通过模块和类及函数两个层面对该项目进行依赖分析，判断模块间、类间的耦合程度以及整体架构的健康水平，为之后的系统维护作准备。</p>
+</div>
+<div class="section" id="materials-and-methods">
+<h2>Materials and Methods<a class="headerlink" href="#materials-and-methods" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="materials">
+<h3>Materials<a class="headerlink" href="#materials" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li>Snakefood3: 一款使用AST解析python文件并生成依赖关系图的轻量级软件</li>
+<li>Graphviz 1.6: 一款将结构信息图形可视化的开源软件</li>
+<li>Mermaid: 一个将文本和代码转化为图表形式，并实现图表动态地创建修改的工具</li>
+</ol>
+</div>
+<div class="section" id="methods">
+<h3>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h3>
+<ol class="simple">
+<li>利用snakefood3自动生成EnglishPal的模块层间的依赖关系</li>
+<li>利用Graphviz，将snakefood生成的文件转化为图表形式可视化呈现</li>
+<li>阅读源码，总结出EnglishPal中类及函数之间的依赖关系，再利用Mermaid生成可视化图表</li>
+</ol>
+</div>
+<div class="section" id="results">
+<h3>Results<a class="headerlink" href="#results" title="Permalink to this headline">¶</a></h3>
+<p>模块层</p>
+<p>snakefood.dot</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># This file was generated by snakefood3.</span>
+
+<span class="n">strict</span> <span class="n">digraph</span> <span class="s2">&quot;dependencies&quot;</span> <span class="p">{</span>
+    <span class="n">graph</span> <span class="p">[</span>
+            <span class="n">rankdir</span><span class="o">=</span><span class="s2">&quot;LR&quot;</span><span class="p">,</span>
+            <span class="n">overlap</span><span class="o">=</span><span class="s2">&quot;scale&quot;</span><span class="p">,</span>
+            <span class="n">ratio</span><span class="o">=</span><span class="s2">&quot;fill&quot;</span><span class="p">,</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="s2">&quot;16&quot;</span><span class="p">,</span>
+            <span class="n">dpi</span><span class="o">=</span><span class="s2">&quot;150&quot;</span><span class="p">,</span>
+            <span class="n">clusterrank</span><span class="o">=</span><span class="s2">&quot;local&quot;</span>
+        <span class="p">]</span>
+    
+       <span class="n">node</span> <span class="p">[</span>
+            <span class="n">fontsize</span><span class="o">=</span><span class="mi">14</span>
+            <span class="n">shape</span><span class="o">=</span><span class="n">ellipse</span>
+            <span class="n">fontname</span><span class="o">=</span><span class="n">Consolas</span>
+       <span class="p">];</span>
+
+<span class="s2">&quot;difficulty.py&quot;</span>  <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">];</span>
+<span class="s2">&quot;difficulty.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;wordfreqCMD.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;difficulty.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;math&quot;</span><span class="p">;</span>
+<span class="s2">&quot;difficulty.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;pickle.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span>  <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">];</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;UseSqlite.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;WordFreq.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;difficulty.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;pickle_idea.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;pickle_idea2.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;wordfreqCMD.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;datetime&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;glob.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;os.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;main.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;random.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;pickle_idea.py&quot;</span>  <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">];</span>
+<span class="s2">&quot;pickle_idea.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;pickle.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;pickle_idea2.py&quot;</span>  <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">];</span>
+<span class="s2">&quot;pickle_idea2.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;datetime&quot;</span><span class="p">;</span>
+<span class="s2">&quot;pickle_idea2.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;pickle.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;UseSqlite.py&quot;</span>  <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">];</span>
+<span class="s2">&quot;UseSqlite.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;sqlite3&quot;</span><span class="p">;</span>
+<span class="s2">&quot;WordFreq.py&quot;</span>  <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">];</span>
+<span class="s2">&quot;WordFreq.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;wordfreqCMD.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;WordFreq.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;string.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;wordfreqCMD.py&quot;</span>  <span class="p">[</span><span class="n">style</span><span class="o">=</span><span class="n">filled</span><span class="p">];</span>
+<span class="s2">&quot;wordfreqCMD.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;pickle_idea.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;wordfreqCMD.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;collections.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;wordfreqCMD.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;operator&quot;</span><span class="p">;</span>
+<span class="s2">&quot;wordfreqCMD.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;os.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;wordfreqCMD.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;string.py&quot;</span><span class="p">;</span>
+<span class="s2">&quot;wordfreqCMD.py&quot;</span> <span class="o">-&gt;</span> <span class="s2">&quot;sys&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>依赖图（graphviz生成）</p>
+<p><img alt="图片1" src="_images/pic1.png" /></p>
+<p>类/函数层
+metmaid.txt</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">mermaid</span>
+<span class="n">classDiagram</span>
+    <span class="n">WordFreq</span> <span class="o">..&gt;</span> <span class="n">WordfreqCMD</span>
+    <span class="n">WordfreqCMD</span> <span class="o">&lt;..</span> <span class="n">Difficulty</span>
+    <span class="n">Sqlite3Template</span> <span class="o">&lt;|--</span> <span class="n">InsertQuery</span>
+    <span class="n">Sqlite3Template</span> <span class="o">&lt;|--</span> <span class="n">RecordQuery</span>
+    <span class="n">WordManipulation</span> <span class="o">&lt;..</span> <span class="n">GetTodayArticle</span>
+    <span class="n">GetTodayArticle</span> <span class="o">..|&gt;</span><span class="n">Sqlite3Template</span>
+    <span class="n">Difficulty</span> <span class="o">&lt;|..</span> <span class="n">GetTodayArticle</span>
+    <span class="n">MainPage</span> <span class="o">..|&gt;</span> <span class="n">WordFreq</span>
+    <span class="n">WordManipulation</span> <span class="o">&lt;..</span> <span class="n">MarkWord</span>
+    <span class="n">PickleIdea</span> <span class="o">&lt;|..</span> <span class="n">WordManipulation</span>
+    <span class="n">MarkWord</span> <span class="o">&lt;--</span> <span class="n">MainPage</span>
+    <span class="n">UserMarkWord</span> <span class="o">&lt;--</span> <span class="n">UserPage</span>
+    <span class="n">UserReset</span> <span class="o">&lt;--</span> <span class="n">UserPage</span>
+    <span class="n">GetTodayArticle</span> <span class="o">&lt;..</span> <span class="n">UserPage</span>
+    <span class="n">UserPage</span> <span class="o">..|&gt;</span> <span class="n">PickleIdea2</span>
+    <span class="n">WordFreq</span> <span class="o">&lt;|..</span> <span class="n">UserPage</span>
+    <span class="n">WordManipulation</span> <span class="o">&lt;..</span> <span class="n">UserMarkWord</span>
+    <span class="n">Signup</span> <span class="o">--|&gt;</span> <span class="n">UserManipulation</span>
+    <span class="n">Login</span>  <span class="o">--|&gt;</span> <span class="n">UserManipulation</span>
+    <span class="n">Logout</span>  <span class="o">--|&gt;</span> <span class="n">UserManipulation</span>
+    <span class="n">UserManipulation</span> <span class="o">..|&gt;</span><span class="n">Sqlite3Template</span>
+    <span class="n">Sqlite3Template</span> <span class="o">&lt;|--</span> <span class="n">InsertQuery</span>
+    <span class="n">Sqlite3Template</span> <span class="o">&lt;|--</span> <span class="n">RecordQuery</span>
+    <span class="k">class</span> <span class="nc">PickleIdea</span><span class="p">{</span>
+       <span class="o">+</span><span class="n">lst2dict</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">dict2lst</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">merge_frequency</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">load_record</span><span class="p">(</span><span class="n">pickle_fname</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">save_frequency_to_pickle</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">pickle_fname</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">PickleIdea2</span><span class="p">{</span>
+       <span class="o">+</span><span class="n">lst2dict</span><span class="p">(</span><span class="n">lst</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">dict2lst</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">merge_frequency</span><span class="p">(</span><span class="n">lst1</span><span class="p">,</span> <span class="n">lst2</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">load_record</span><span class="p">(</span><span class="n">pickle_fname</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">save_frequency_to_pickle</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">pickle_fname</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">class</span> <span class="nc">WordfreqCMD</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">freq</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">youdao_link</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">file2str</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">remove_punctuation</span><span class="p">(</span><span class="n">string</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">sort_in_descending_order</span><span class="p">(</span><span class="n">List</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">sort_in_ascending_order</span><span class="p">(</span><span class="n">List</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">make_html_page</span> <span class="p">(</span><span class="n">List</span><span class="p">,</span><span class="n">fname</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">WordFreq</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">init</span><span class="p">()</span>
+      <span class="o">+</span><span class="n">get_freq</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Difficulty</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">load_record</span><span class="p">(</span><span class="n">fname</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">difficulty_level_from_frequency</span><span class="p">(</span><span class="n">word</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">get_difficulty_level</span><span class="p">(</span><span class="n">d1</span><span class="p">,</span> <span class="n">d2</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">revert_dict</span><span class="p">(</span><span class="n">d</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">user_difficulty_level</span><span class="p">(</span><span class="n">d_user</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">text_difficulty_level</span><span class="p">(</span><span class="n">s</span><span class="p">,</span> <span class="n">d</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">WordManipulation</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">String</span> <span class="n">path_prefix</span>
+      <span class="o">+</span><span class="n">load_freq_history</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">get_time</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">GetTodayArticle</span><span class="p">{</span>
+      <span class="o">+</span><span class="nb">dict</span> <span class="n">dic</span>
+      <span class="o">+</span><span class="nb">list</span> <span class="n">article</span>
+      <span class="o">+</span><span class="n">within_range</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">r</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">get_question_part</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">get_answer_part</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">MainPage</span><span class="p">{</span>
+    <span class="o">+</span><span class="n">get_random_image</span><span class="p">()</span>
+    <span class="o">+</span><span class="n">get_random_ads</span><span class="p">()</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">MarkWord</span><span class="p">{</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">UserPage</span><span class="p">{</span>
+    <span class="o">+</span><span class="n">date</span> <span class="n">user_expiry_date</span>
+    <span class="o">+</span><span class="n">String</span> <span class="n">username</span>
+    <span class="o">+</span><span class="n">String</span> <span class="n">user_freq_record</span>
+    <span class="o">+</span><span class="n">appears_in_test</span><span class="p">(</span><span class="n">word</span><span class="p">,</span><span class="n">d</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">UserReset</span><span class="p">{</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">UserMarkWord</span><span class="p">{</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">UserManipulation</span><span class="p">{</span>
+    <span class="o">+</span><span class="n">String</span> <span class="n">username</span>
+    <span class="o">+</span><span class="n">String</span> <span class="n">password</span>
+    <span class="o">+</span><span class="nb">bool</span> <span class="n">available</span>
+    <span class="o">+</span><span class="nb">bool</span> <span class="n">verified</span>
+    <span class="o">+</span><span class="n">verify_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Signup</span><span class="p">{</span>
+    <span class="o">+</span><span class="n">check_username_availability</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="o">+</span><span class="n">add_user</span><span class="p">(</span><span class="n">username</span><span class="p">,</span> <span class="n">password</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Login</span><span class="p">{</span>
+    <span class="o">+</span><span class="n">get_expiry_date</span><span class="p">(</span><span class="n">username</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Logout</span><span class="p">{</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">Sqlite3Template</span><span class="p">{</span>
+       <span class="o">+</span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_fname</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">db_fname</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">instructions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query_statement</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">operate</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+       <span class="o">+</span><span class="n">format_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+       <span class="o">+</span><span class="n">do</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">InsertQuery</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">instructions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
+    <span class="p">}</span>
+    <span class="k">class</span> <span class="nc">RecordQuery</span><span class="p">{</span>
+      <span class="o">+</span><span class="n">instructions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">query</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">format_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+      <span class="o">+</span><span class="n">get_results</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>依赖图（Mermaid生成）</p>
+<p><img alt="图片2" src="_images/pic2.png" /></p>
+</div>
+</div>
+<div class="section" id="discussions">
+<h2>Discussions<a class="headerlink" href="#discussions" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="id1">
+<h3>依赖分析<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h3>
+</div>
+<div class="section" id="id2">
+<h3>当前架构优缺点<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="id3">
+<h4>优点：<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h4>
+<p>1.使用了Flask框架，让项目变得精简、易于</p>
+<p>前后端</p>
+</div>
+<div class="section" id="id4">
+<h4>缺点：<a class="headerlink" href="#id4" title="Permalink to this headline">¶</a></h4>
+</div>
+</div>
+<div class="section" id="id5">
+<h3>总结<a class="headerlink" href="#id5" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="references">
+<h2>References<a class="headerlink" href="#references" title="Permalink to this headline">¶</a></h2>
+<p>[1]<a class="reference external" href="https://thehackpost.com/a-brief-guide-how-to-write-a-computer-science-lab-report.html">https://thehackpost.com/a-brief-guide-how-to-write-a-computer-science-lab-report.html</a></p>
+</div>
+</div>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Welcome to EnglishPal&#39;s documentation!" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2021, deartong.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
