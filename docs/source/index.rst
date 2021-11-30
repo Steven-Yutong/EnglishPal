@@ -3,7 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to EnglishPal's documentation!
 ======================================
 
 .. toctree::
@@ -11,19 +10,23 @@ Welcome to EnglishPal's documentation!
    :caption: Contents:
    
 
-Indices and tables
 ==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
 
 
 Lab1：Dependency Analysis and Dependency Graph
 ==============================================
 
-小组成员信息： 201932110143 王炫 201932110145 邬程峰 201932110146 吴彬宇
-201932110147 吴雨桐 201932110148 谢铭轩
+小组成员信息： 
+
+201932110143 王炫 
+
+201932110145 邬程峰 
+
+201932110146 吴彬宇
+
+201932110147 吴雨桐 
+
+201932110148 谢铭轩
 
 项目Gitee地址：\ `Gitee <https://gitee.com/dearxuan/EnglishPal.git>`__
 
@@ -344,7 +347,12 @@ References
 [1] `Sofia Peterson, How to Write a Computer Science Lab Report, Copyright (C)
 2019 <https://thehackpost.com/a-brief-guide-how-to-write-a-computer-science-lab-report.html>`__
 
-[2] []
+[2] `Georg Brandl and the Sphinx team, reStructuredText Primer Copyright (C)
+2007-2021 <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__
+
+[3] `trim21, Snakefood3 Copyright (C)
+2021 <https://pypi.org/project/snakefood3/>`__
+
 
 .. |图片1| image:: pic1.png
 
