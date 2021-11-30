@@ -10,18 +10,6 @@ Welcome to EnglishPal's documentation!
    :maxdepth: 2
    :caption: Contents:
 
-   example
-
-
-
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
-
-
 Lab1：Dependency Analysis and Dependency Graph
 ==============================================
 
@@ -346,3 +334,9 @@ Copyright (C)
 2019 <https://thehackpost.com/a-brief-guide-how-to-write-a-computer-science-lab-report.html>`__
 [2] []
 
+Indices and tables
+==================
+
+* :ref:`genindex`
+* :ref:`modindex`
+* :ref:`search`
