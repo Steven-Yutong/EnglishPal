@@ -3,7 +3,6 @@
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-======================================
 
 .. toctree::
    :maxdepth: 2
@@ -28,7 +27,7 @@ Lab1：Dependency Analysis and Dependency Graph
 
 201932110148 谢铭轩
 
-项目Gitee地址：\ `Gitee <https://gitee.com/dearxuan/EnglishPal.git>`__
+项目Github地址：\ `Github <https://gitee.com/dearxuan/EnglishPal.git>`__
 
 项目Read the Docs地址：\ `Read the Docs <https://www.baidu.com>`__
 
