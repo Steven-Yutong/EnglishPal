@@ -61,7 +61,7 @@ Materials
 Methods
 ~~~~~~~
 
-1. 利用snakefood3自动生成EnglishPal的模块层间的依赖关系
+1. 利用snakefood自动生成EnglishPal的模块层间的依赖关系
 
 2. 利用Graphviz，将snakefood生成的文件转化为图表形式可视化呈现
 
