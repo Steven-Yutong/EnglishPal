@@ -20,8 +20,8 @@
 # -- Project information -----------------------------------------------------
 
 project = 'EnglishPal'
-copyright = '2021, root'
-author = 'root'
+copyright = '2021, yutong'
+author = 'yutong'
 
 # The short X.Y version
 version = ''
