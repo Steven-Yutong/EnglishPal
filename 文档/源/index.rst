@@ -52,9 +52,9 @@ Materials and Methods
 Materials
 ~~~~~~~~~
 
-1. Snakefood3: 一款使用AST解析python文件并生成依赖关系图的轻量级软件
+1. Snakefood: 一款使用AST解析python文件并生成依赖关系图的轻量级软件
 
-2. Graphviz 1.6: 一款将结构信息图形可视化的开源软件
+2. Graphviz: 一款将结构信息图形可视化的开源软件
 
 3. Mermaid: 一个将文本和代码转化为图表形式，并实现图表动态地创建修改的工具
 
@@ -350,8 +350,8 @@ References
 [2] `Georg Brandl and the Sphinx team, reStructuredText Primer Copyright (C)
 2007-2021 <https://www.sphinx-doc.org/en/master/usage/restructuredtext/basics.html>`__
 
-[3] `trim21, Snakefood3 Copyright (C)
-2021 <https://pypi.org/project/snakefood3/>`__
+[3] `Martin Blais, Snakefood Copyright (C)
+2021 <https://pypi.org/project/snakefood/>`__
 
 
 .. |图片1| image:: pic1.png
