@@ -153,8 +153,3 @@ texinfo_documents = [
      author, 'EnglishPal', 'One line description of project.',
      'Miscellaneous'),
 ]
-
-# -- Build PDF & ePub --------------------------------------------------------
-formats:
-  - epub
-  - pdf
