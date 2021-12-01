@@ -130,7 +130,7 @@ latex_elements = {
 latex_documents = [
     (master_doc, 'EnglishPal.tex', 'EnglishPal Documentation',
      'yutong', 'manual'),
-    'extraclassoptions': 'openany,oneside',
+ 
 ]
 
 
